@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Cub — конструктор email-писем</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Email Cub</h1>
+      <p>Конструктор для создания email-писем с drag-and-drop блоками, настройкой и живым предпросмотром.</p>
+    </header>
+
+    <main class="layout">
+      <aside class="panel blocks-panel">
+        <h2>Блоки</h2>
+        <p class="hint">Перетащите блок на холст</p>
+        <div class="block-list" id="blockPalette"></div>
+      </aside>
+
+      <section class="panel canvas-panel">
+        <div class="canvas-head">
+          <h2>Холст письма</h2>
+          <button id="clearCanvas" class="secondary">Очистить</button>
+        </div>
+        <div id="canvas" class="canvas" aria-label="Поле конструктора"></div>
+      </section>
+
+      <aside class="panel settings-panel">
+        <h2>Настройки блока</h2>
+        <p class="hint" id="noSelection">Выберите блок на холсте, чтобы изменить его параметры.</p>
+        <form id="settingsForm" class="settings-form hidden"></form>
+      </aside>
+    </main>
+
+    <section class="panel preview-panel">
+      <div class="code-head">
+        <h2>Предпросмотр (интерактивный)</h2>
+        <button id="openPreview" class="secondary">Открыть отдельно</button>
+      </div>
+      <p class="hint">Внутри предпросмотра можно нажимать на ссылки и кнопки как в реальном письме.</p>
+      <iframe id="emailPreview" title="Предпросмотр email" class="email-preview"></iframe>
+    </section>
+
+    <section class="panel code-panel">
+      <div class="code-head">
+        <h2>HTML-код email</h2>
+        <div class="code-actions">
+          <button id="generateCode">Сгенерировать код</button>
+          <button id="copyCode" class="secondary">Скопировать</button>
+        </div>
+      </div>
+      <textarea id="codeOutput" readonly placeholder="Здесь появится код email-письма..."></textarea>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
