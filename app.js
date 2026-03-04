@@ -1,7 +1,21 @@
 const blockTypes = [
   {
+    type: 'image',
+    name: 'Изображение',
+    icon: '🖼',
+    description: 'Позволяет загружать и редактировать изображения.',
+    defaults: { url: 'https://via.placeholder.com/600x240', alt: 'Превью', width: '100%' },
+    fields: [
+      { key: 'url', label: 'URL изображения', kind: 'text' },
+      { key: 'alt', label: 'ALT-текст', kind: 'text' },
+      { key: 'width', label: 'Ширина (например: 100% или 560px)', kind: 'text' },
+    ],
+  },
+  {
     type: 'header',
     name: 'Заголовок',
+    icon: 'T',
+    description: 'Крупный заголовок для темы письма.',
     defaults: { text: 'Добро пожаловать!', align: 'center', color: '#1e2630' },
     fields: [
       { key: 'text', label: 'Текст', kind: 'text' },
@@ -12,6 +26,8 @@ const blockTypes = [
   {
     type: 'text',
     name: 'Текст',
+    icon: '¶',
+    description: 'Основной текстовый блок с настраиваемым выравниванием.',
     defaults: {
       text: 'Добавьте описание предложения или новости компании.',
       align: 'left',
@@ -24,18 +40,10 @@ const blockTypes = [
     ],
   },
   {
-    type: 'image',
-    name: 'Изображение',
-    defaults: { url: 'https://via.placeholder.com/600x240', alt: 'Превью', width: '100%' },
-    fields: [
-      { key: 'url', label: 'URL изображения', kind: 'text' },
-      { key: 'alt', label: 'ALT-текст', kind: 'text' },
-      { key: 'width', label: 'Ширина (например: 100% или 560px)', kind: 'text' },
-    ],
-  },
-  {
     type: 'button',
     name: 'Кнопка',
+    icon: '◉',
+    description: 'CTA-кнопка для перехода по ссылке.',
     defaults: { text: 'Открыть предложение', href: 'https://example.com', bg: '#275efe', color: '#ffffff' },
     fields: [
       { key: 'text', label: 'Текст кнопки', kind: 'text' },
@@ -80,7 +88,15 @@ function initPalette() {
     const button = document.createElement('button');
     button.className = 'palette-item';
     button.draggable = true;
-    button.textContent = def.name;
+    button.type = 'button';
+    button.innerHTML = `
+      <span class="palette-icon" aria-hidden="true">${def.icon}</span>
+      <span class="palette-tooltip" role="tooltip">
+        <strong>${def.name}</strong>
+        <span>${def.description}</span>
+      </span>
+    `;
+    button.setAttribute('aria-label', def.name);
     button.addEventListener('dragstart', (event) => {
       event.dataTransfer.setData('blockType', def.type);
     });
@@ -281,7 +297,13 @@ document.getElementById('generateCode').addEventListener('click', () => {
 });
 
 document.getElementById('copyCode').addEventListener('click', async () => {
-  await navigator.clipboard.writeText(codeOutput.value);
+  try {
+    await navigator.clipboard.writeText(codeOutput.value);
+  } catch {
+    // В некоторых окружениях clipboard API может быть недоступен без HTTPS
+    codeOutput.select();
+    document.execCommand('copy');
+  }
 });
 
 document.getElementById('openPreview').addEventListener('click', () => {
