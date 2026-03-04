@@ -22,7 +22,7 @@
       <section class="panel canvas-panel">
         <div class="canvas-head">
           <h2>Холст письма</h2>
-          <button id="clearCanvas" class="secondary">Очистить</button>
+          <button id="clearCanvas" class="secondary" type="button">Очистить</button>
         </div>
         <div id="canvas" class="canvas" aria-label="Поле конструктора"></div>
       </section>
@@ -37,7 +37,7 @@
     <section class="panel preview-panel">
       <div class="code-head">
         <h2>Предпросмотр (интерактивный)</h2>
-        <button id="openPreview" class="secondary">Открыть отдельно</button>
+        <button id="openPreview" class="secondary" type="button">Открыть отдельно</button>
       </div>
       <p class="hint">Внутри предпросмотра можно нажимать на ссылки и кнопки как в реальном письме.</p>
       <iframe id="emailPreview" title="Предпросмотр email" class="email-preview"></iframe>
@@ -47,8 +47,8 @@
       <div class="code-head">
         <h2>HTML-код email</h2>
         <div class="code-actions">
-          <button id="generateCode">Сгенерировать код</button>
-          <button id="copyCode" class="secondary">Скопировать</button>
+          <button id="generateCode" type="button">Сгенерировать код</button>
+          <button id="copyCode" class="secondary" type="button">Скопировать</button>
         </div>
       </div>
       <textarea id="codeOutput" readonly placeholder="Здесь появится код email-письма..."></textarea>
